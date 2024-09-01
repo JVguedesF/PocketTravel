@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background_color">#4ac5d5</color>
+    <color name="background_color_light">#F5F5F5</color>
+    <color name="border_color">#3b9daa</color>
+    <color name="button_color">#FF9958</color>
+    <color name="text_color">#0e272a</color>
+    <color name="title_color">#25626a</color>
+
+    <color name="primary_200">#A3E1E9</color>
+    <color name="primary_500">#4ac5d5</color>
+    <color name="primary_700">#3b9daa</color>
+    <color name="primary_900">#25626a</color>
+
+    <color name="gray_500">#B6B6B6</color>
+
+    <color name="black">#000000</color>
+    <color name="red">#C32E23</color>
+    <color name="white">#FFFFFF</color>
+
+    //input
+    <color name="default_unfocused_border">#4AC5D5</color>
+    <color name="default_focused_border">#3B9DAA</color>
+    <color name="default_unfocused_container">#6ED0DD</color>
+    <color name="default_focused_container">#6ED0DD</color>
+</resources>

@@ -1,0 +1,61 @@
+<resources>
+    //login screen
+    <string name="app_name">Pocket Travel</string>
+    <string name="login_email_placeholder">Digite seu e-mail</string>
+    <string name="login_email_label">E-mail</string>
+    <string name="login_email_message">O e-mail é obrigatório!</string>
+    <string name="login_password_placeholder">Digite sua senha</string>
+    <string name="login_password_label">Senha</string>
+    <string name="login_password_message">A senha é obrigatória!</string>
+    <string name="login_password_forgot">Esqueceu a sua senha?</string>
+    <string name="login_button_enter">ENTRAR</string>
+    <string name="login_subscribe_phrase">Ainda não tem uma conta?</string>
+    <string name="login_subscribe_link">Inscreva-se</string>
+
+    //subscribe screen
+    <string name="subscribe_firstName_placeholder">Digite seu nome</string>
+    <string name="subscribe_firstName_label">Nome</string>
+    <string name="subscribe_firstName_message">O nome é obrigatório!</string>
+    <string name="subscribe_lastName_placeholder">Digite seu sobrenome</string>
+    <string name="subscribe_lastName_label">Sobrenome</string>
+    <string name="subscribe_lastName_message">O sobrenome nome é obrigatório!</string>
+    <string name="subscribe_email_placeholder">Digite seu e-mail</string>
+    <string name="subscribe_email_label">E-mail</string>
+    <string name="subscribe_email_message">O e-mail nome é obrigatório!</string>
+    <string name="subscribe_email_error">O e-mail é inválido!</string>
+    <string name="subscribe_password_placeholder">Digite sua senha</string>
+    <string name="subscribe_password_label">Senha</string>
+    <string name="subscribe_password_message">Máximo de 8 caracteres.</string>
+    <string name="subscribe_password_message_error">A senha é obrigatória!</string>
+    <string name="subscribe_confirmPassword_placeholder">Confirme a sua senha</string>
+    <string name="subscribe_confirmPassword_label">Confirmar senha</string>
+    <string name="subscribe_confirmPassword_message_error">A confirmação da senha é obrigatória!</string>
+    <string name="subscribe_password_mismatch_message">As senhas não correspondem!</string>
+    <string name="subscribe_checkbox_receive_updates">Aceito receber novidades da Pocket Travel.</string>
+    <string name="subscribe_checkbox_accept_terms_part1">Estou de acordo com os </string>
+    <string name="terms_of_service"> Termos de Serviços </string>
+    <string name="subscribe_checkbox_accept_terms_part2"> e a </string>
+    <string name="privacy_policy"> Política de Privacidade </string>
+    <string name="subscribe_checkbox_accept_terms_part3"> da Pocket Travel.</string>
+    <string name="subscribe_button_enter">CADASTRAR</string>
+
+    //dashboard screen
+    <string name="dashboard_user">Olá, Maria</string>
+    <string name="dashboard_title">Aonde vamos agora?</string>
+    <string name="dashboard_input">Pesquisar</string>
+    <string name="dashboard_popular">Populares</string>
+    <string name="dashboard_most_visited">Mais Visitados</string>
+    <string name="dashboard_categories">Categorias</string>
+    <string name="dashboard_categories_camp">Campo</string>
+    <string name="dashboard_categories_beach">Praia</string>
+    <string name="dashboard_categories_tracking">Trilha</string>
+    <string name="dashboard_categories_museum">Museu</string>
+    <string name="dashboard_categories_park">Parque</string>
+    <string name="dashboard_lastseen">Últimos Vistos</string>
+
+
+
+
+
+
+</resources>
