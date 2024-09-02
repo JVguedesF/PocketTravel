@@ -7,23 +7,23 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import br.com.renankoji.pockettravel.screens.CityScreen
 import br.com.renankoji.pockettravel.screens.DashboardScreen
+import br.com.renankoji.pockettravel.screens.LoginScreen
 import br.com.renankoji.pockettravel.ui.theme.PocketTravelTheme
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import br.com.renankoji.pockettravel.screens.SubscribeScreen
 
 class MainActivity : ComponentActivity() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -38,8 +38,9 @@ class MainActivity : ComponentActivity() {
                 var userLatitude by remember { mutableStateOf<Double?>(null) }
                 var userLongitude by remember { mutableStateOf<Double?>(null) }
                 var hasLocationPermission by remember { mutableStateOf(false) }
+                var isUserLoggedIn by remember { mutableStateOf(false) }
 
-                // Verificar permissões e buscar localização se permitido
+                // Verificar permissões e buscar localização - pode ser movido para dentro do DashboardScreen
                 LaunchedEffect(Unit) {
                     hasLocationPermission = checkLocationPermissionAndFetch(
                         onLocationReceived = { latitude, longitude ->
@@ -51,39 +52,78 @@ class MainActivity : ComponentActivity() {
 
                 Surface(modifier = Modifier.fillMaxSize()) {
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = "dashboard") {
-                        composable("dashboard") {
-                            DashboardScreen(
-                                userLatitude = userLatitude,
-                                userLongitude = userLongitude,
-                                hasLocationPermission = hasLocationPermission,
-                                navController = navController
-                            )
-                        }
-                        composable("city/{cityName}/{categoryOption}") { backStackEntry ->
-                            val cityName = backStackEntry.arguments?.getString("cityName") ?: ""
-                            val categoryOption = backStackEntry.arguments?.getString("categoryOption") ?: ""
-                            CityScreen(
-                                city = cityName,
-                                category = categoryOption,
-                                userLatitude = userLatitude,
-                                userLongitude = userLongitude,
-                            )
-                        }
-                    }
+                    AppNavigation(
+                        navController = navController,
+                        isUserLoggedIn = isUserLoggedIn,
+                        onLoginSuccess = { loggedIn ->
+                            isUserLoggedIn = loggedIn
+                        },
+                        userLatitude = userLatitude,
+                        userLongitude = userLongitude,
+                        hasLocationPermission = hasLocationPermission
+                    )
                 }
             }
         }
     }
 
+    @Composable
+    fun AppNavigation(
+        navController: NavHostController,
+        isUserLoggedIn: Boolean,
+        onLoginSuccess: (Boolean) -> Unit,
+        userLatitude: Double?,
+        userLongitude: Double?,
+        hasLocationPermission: Boolean
+    ) {
+        NavHost(navController = navController, startDestination = "login") {
+            composable("login") {
+                LoginScreen(navController = navController)
+            }
+
+            composable("dashboard") {
+                // Removido o bloco if para permitir acesso direto (temporário)
+                DashboardScreen(
+                    userLatitude = userLatitude,
+                    userLongitude = userLongitude,
+                    hasLocationPermission = hasLocationPermission,
+                    navController = navController
+                )
+            }
+
+            composable("subscribe") {
+                SubscribeScreen(
+                    firstName = "",
+                    lastName = "",
+                    email = "",
+                    navController = navController
+                )
+            }
+
+            composable("city/{cityName}/{categoryOption}") { backStackEntry ->
+                val cityName = backStackEntry.arguments?.getString("cityName") ?: ""
+                val categoryOption = backStackEntry.arguments?.getString("categoryOption") ?: ""
+                CityScreen(
+                    city = cityName,
+                    category = categoryOption,
+                    userLatitude = userLatitude,
+                    userLongitude = userLongitude
+                )
+            }
+        }
+    }
+
     private fun checkLocationPermissionAndFetch(onLocationReceived: (Double?, Double?) -> Unit): Boolean {
-        return if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED
+        return if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
         ) {
             try {
                 getLastKnownLocation(onLocationReceived)
             } catch (e: SecurityException) {
-                Toast.makeText(this, "Erro de segurança ao acessar a localização.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Erro de segurança ao acessar a localização.", Toast.LENGTH_SHORT)
+                    .show()
                 onLocationReceived(null, null)
             }
             true
@@ -118,8 +158,10 @@ class MainActivity : ComponentActivity() {
                     onLocationReceived(null, null)
                 }
         } catch (e: SecurityException) {
-            Toast.makeText(this, "Erro de segurança ao acessar a localização.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Erro de segurança ao acessar a localização.", Toast.LENGTH_SHORT)
+                .show()
             onLocationReceived(null, null)
         }
     }
+
 }

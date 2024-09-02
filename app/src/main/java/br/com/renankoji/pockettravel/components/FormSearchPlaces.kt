@@ -60,7 +60,7 @@ fun FormSearchPlaces(navController: NavController) {
                     ),
                     icon = city.icon,
                     borderColor = colorResource(id = R.color.primary_500),
-                    shape = RoundedCornerShape(50),
+                    shape = RoundedCornerShape(16.dp),
                     onClick = { chosenCity.value = city.title })
             }
         }
@@ -87,8 +87,8 @@ fun FormSearchPlaces(navController: NavController) {
         }
         Spacer(modifier = Modifier.height(16.dp))
         Box(
-            modifier = Modifier.fillMaxWidth(),  // O Box ocupa toda a largura
-            contentAlignment = Alignment.Center  // Centraliza o conteúdo dentro do Box
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
         ) {
             Button(
                 onClick = { navController.navigate("city/${chosenCity.value}/${chosenCategory.value}") },

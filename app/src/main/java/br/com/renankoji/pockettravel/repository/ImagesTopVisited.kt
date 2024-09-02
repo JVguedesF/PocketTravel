@@ -5,7 +5,12 @@ import br.com.renankoji.pockettravel.R
 data class ImagesPlaces(
     val id: Int,
     val imageResId: Int
-)
+) {
+    val location: Any
+        get() {
+            TODO()
+        }
+}
 
 fun ImagesTopVisited(): List<ImagesPlaces> {
     return listOf(
